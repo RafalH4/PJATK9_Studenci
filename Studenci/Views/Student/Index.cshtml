@@ -1,0 +1,55 @@
+﻿@model List<Studenci.Models.Student>
+
+@{
+    ViewBag.Title = "Lista studentów";
+}
+
+<h2>Lista studentów</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nowego studenta", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Numer indeksu
+            @using (Html.BeginForm("Search", "Student", FormMethod.Get))
+            {
+                <div class="input-group">
+                    @Html.TextBox("indexNumber", null, new { @class = "form-control", style = "max-width: 150px;" })
+                    <span class="input-group-btn">
+                        <input type="submit" value="FIltruj" class="btn btn-primary" />
+                    </span>
+                </div>
+            }
+        </th>
+        <th>
+            Imię
+        </th>
+        <th>
+            Nazwisko
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => student.IndexNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.LastName)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = student.Id }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = student.Id })
+            </td>
+        </tr>
+    }
+
+</table>
